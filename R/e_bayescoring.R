@@ -58,7 +58,7 @@ e_bayescoring <- function(data, id, block, item, choice, E = .1,
                           alpha = 1, wide = FALSE) {
   
   # check data ----
-  get_checks(data, id, block, item, choice)
+  get_checks(data, id, block, item, choice, nonbibd = TRUE)
   
   # get aggregate estimates ----
   agg_dat <- data %>% 
