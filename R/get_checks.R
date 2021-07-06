@@ -164,6 +164,7 @@ check_design <- function(data, id, block, item, choice, aggregate = FALSE,
       pw_missing = any(tmp == 0),
       pw_same = length(unique(tmp[upper.tri(tmp) | lower.tri(tmp)])) > 1
     )
+    cat(tmp)
   })
   if (!aggregate) {
     if (any(sapply(test, getElement, "pw_missing"))) {
