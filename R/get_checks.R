@@ -103,18 +103,18 @@ check_design <- function(data, id, block, item, choice, aggregate = FALSE,
 
   # columns ----
   if (!all(c(id, block, item, choice) %in% names(data))) {
-    warning("Data must contain ", id, ", ", block, ", ", item, ", ", choice)
+    print("Data must contain ", id, ", ", block, ", ", item, ", ", choice)
   }
 
   # only -1, 0, and 1 ----
   if (!all(data[[choice]] %in% -1:1)) {
-    warning("'", choice, "' column must only contain -1, 0, or 1")
+    print("'", choice, "' column must only contain -1, 0, or 1")
   }
 
   # every id needs same amount of blocks ----
   if (!aggregate &&
       length(unique(with(unique(data[, c(id, block)]), table(id)))) > 1) {
-    warning("Each id must have the same amount of blocks")
+    print("Each id must have the same amount of blocks")
   }
 
   # -1 and +1 only appear once per block per id ----
@@ -123,19 +123,19 @@ check_design <- function(data, id, block, item, choice, aggregate = FALSE,
     all(apply(test[c(1, 3), , x], 1, function(y) y == 1))
   })
   if (!all(test)) {
-    warning("-1 and 1 must appear exactly once in every id-block combination. ",
+    print("-1 and 1 must appear exactly once in every id-block combination. ",
          "Currently, this is not the case for the ids:\n",
          paste0(unique(data[[id]])[!test], collapse = ", "))
   }
 
   # every block needs same amount of options ----
   if (!aggregate && length(unique(table(data[[id]], data[[block]]))) > 1) {
-    warning("Each block for each id must have same amount of items")
+    print("Each block for each id must have same amount of items")
   }
 
   # each item can't appear more than once in an id-block ----
   if (any(table(data[[id]], data[[block]], data[[item]]) > 1)) {
-    warning("An item cannot appear more than once in an id-block combination.")
+    print("An item cannot appear more than once in an id-block combination.")
   }
 
   # each id must have the same items ----
@@ -143,7 +143,7 @@ check_design <- function(data, id, block, item, choice, aggregate = FALSE,
     sort(unique(data[[item]][data[[id]] == x]))
   })
   if (!aggregate && !all(Vectorize(identical, "x")(test, test[[1]]))) {
-    warning("Each id must be rating the same set of items")
+    print("Each id must be rating the same set of items")
   }
 
   # every pairwise item comparison must appear and same amount of times ----
@@ -160,10 +160,10 @@ check_design <- function(data, id, block, item, choice, aggregate = FALSE,
   })
   if (!aggregate) {
     if (any(sapply(test, getElement, "pw_missing"))) {
-      warning("Each pairwise comparison between items must occur for every id")
+      print("Each pairwise comparison between items must occur for every id")
       }
     if (any(sapply(test, getElement, "pw_same"))) {
-      warning("Each pairwise comparison between items must occur the same amount of times for each id.")
+      print("Each pairwise comparison between items must occur the same amount of times for each id.")
     }
   }
 }
