@@ -104,7 +104,7 @@ check_design <- function(data, id, block, item, choice, aggregate = FALSE,
   i = 0
   # columns ----
   if (!all(c(id, block, item, choice) %in% names(data))) {
-    errors[i] = "Data must contain ", id, ", ", block, ", ", item, ", ", choice
+    #errors[i] = paste0("Data must contain ", id, ", ", block, ", ", item, ", ", choice)
     i <- i + 1
   }
 
