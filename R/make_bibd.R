@@ -26,3 +26,10 @@ make_bibd <- function(design, seed = 1839) {
   
   return(dplyr::as_tibble(out, rownames = "Block"))
 }
+
+design_bibd <- function(t, b, k) {
+    out <- crossdes::find.BIB(t, b, k)
+    colnames(out) <- paste("Option", 1:ncol(out), sep = "_")
+    rownames(out) <- 1:nrow(out)
+    return(dplyr::as_tibble(out, rownames = "Block"))
+}
