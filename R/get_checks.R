@@ -160,14 +160,10 @@ check_design <- function(data, id, block, item, choice, aggregate = FALSE,
   })
   if (!aggregate) {
     if (any(sapply(test, getElement, "pw_missing"))) {
-      if (!nonbibd) {
-        warning("Each pairwise comparison between items must occur for every id")
-        }
+      warning("Each pairwise comparison between items must occur for every id")
       }
     if (any(sapply(test, getElement, "pw_same"))) {
-      if (!nonbibd) {
-        warning("Each pairwise comparison between items must occur the same amount of times for each id.")
-      }
+      warning("Each pairwise comparison between items must occur the same amount of times for each id.")
     }
   }
 }
